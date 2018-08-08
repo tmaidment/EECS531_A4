@@ -1,0 +1,634 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{EECS531 - A4 - E2 - tdm47}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{eecs-531---e2---a4}{%
+\subsection{EECS 531 - E2 - A4}\label{eecs-531---e2---a4}}
+
+\hypertarget{tristan-maidment-tdm47}{%
+\subsubsection{Tristan Maidment (tdm47)}\label{tristan-maidment-tdm47}}
+
+\hypertarget{goal}{%
+\paragraph{Goal}\label{goal}}
+
+The purpose of this exercise is to implement the Lucas Kanade optical
+flow algorithm.
+
+\hypertarget{implementation}{%
+\paragraph{Implementation}\label{implementation}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{cv2}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{from} \PY{n+nn}{pims} \PY{k}{import} \PY{n}{ImageSequence}
+        \PY{k+kn}{from} \PY{n+nn}{numpy}\PY{n+nn}{.}\PY{n+nn}{linalg} \PY{k}{import} \PY{n}{lstsq}
+        \PY{k+kn}{import} \PY{n+nn}{timeit}
+\end{Verbatim}
+
+
+    To test the optical flow algorithm, we will be testing it on two image
+sequences.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{img\PYZus{}rubic} \PY{o}{=} \PY{n}{ImageSequence}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./data/rubic/rubic.*.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{as\PYZus{}grey}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+        \PY{n}{img\PYZus{}sphere} \PY{o}{=} \PY{n}{ImageSequence}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./data/sphere/sphere.*.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{as\PYZus{}grey}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    As part of the exercise, I will be doing the following sub-question in
+order.
+
+\textbf{a)} Compute the discrete derivative components in the motion
+gradient constraint equation for a single pixel location of a moving
+image, \texttt{I(x,y,t)}.
+
+During this step, the spatial gradient \texttt{I\_x,\ I\_y} is
+calculated by taking the difference of the neighboring pixels. In
+addition, we estimate temporal gradient, \texttt{I\_t} by taking the
+intensity difference between the two time slices.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k}{def} \PY{n+nf}{gradient\PYZus{}components}\PY{p}{(}\PY{n}{img0}\PY{p}{,} \PY{n}{img1}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{:}
+            \PY{n}{height}\PY{p}{,} \PY{n}{width} \PY{o}{=} \PY{n}{img0}\PY{o}{.}\PY{n}{shape}
+            \PY{n}{I\PYZus{}x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{subtract}\PY{p}{(}\PY{n}{img0}\PY{p}{[}\PY{n}{x}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{y}\PY{p}{]}\PY{p}{,}\PY{n}{img0}\PY{p}{[}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{y}\PY{p}{]}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{2} \PY{k}{if} \PY{n}{x} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0} \PY{o+ow}{and} \PY{n}{x} \PY{o}{\PYZlt{}} \PY{n}{width} \PY{k}{else} \PY{l+m+mi}{0}
+            \PY{n}{I\PYZus{}y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{subtract}\PY{p}{(}\PY{n}{img0}\PY{p}{[}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{img0}\PY{p}{[}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{2} \PY{k}{if} \PY{n}{y} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0} \PY{o+ow}{and} \PY{n}{y} \PY{o}{\PYZlt{}} \PY{n}{height} \PY{k}{else} \PY{l+m+mi}{0}
+            \PY{n}{I\PYZus{}t} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{subtract}\PY{p}{(}\PY{n}{img1}\PY{p}{[}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{]}\PY{p}{,} \PY{n}{img0}\PY{p}{[}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{]}\PY{p}{)} \PY{k}{if} \PY{n}{y} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0} \PY{o+ow}{and} \PY{n}{y} \PY{o}{\PYZlt{}} \PY{n}{height} \PY{o+ow}{and} \PY{n}{x} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0} \PY{o+ow}{and} \PY{n}{x} \PY{o}{\PYZlt{}} \PY{n}{width} \PY{k}{else} \PY{l+m+mi}{0} \PY{c+c1}{\PYZsh{} I\PYZus{}t approximator}
+            \PY{k}{return} \PY{n}{I\PYZus{}x}\PY{p}{,} \PY{n}{I\PYZus{}y}\PY{p}{,} \PY{n}{I\PYZus{}t}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{I\PYZus{}x}\PY{p}{,} \PY{n}{I\PYZus{}y}\PY{p}{,} \PY{n}{I\PYZus{}t} \PY{o}{=} \PY{n}{gradient\PYZus{}components}\PY{p}{(}\PY{n}{img\PYZus{}rubic}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{/}\PY{l+m+mi}{255}\PY{p}{,} \PY{n}{img\PYZus{}rubic}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{/}\PY{l+m+mi}{255}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{I\PYZus{}x:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{I\PYZus{}x}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{I\PYZus{}y:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{I\PYZus{}y}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{I\PYZus{}t:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{I\PYZus{}t}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+I\_x: 0.15490196078431373 I\_y: -0.0215686274509804 I\_t: -0.02745098039215685
+
+    \end{Verbatim}
+
+    \textbf{b)} Compute the matrix \textbf{A} and vector \textbf{b}
+representing the motion constraint equations over a (small) \emph{n × n}
+window centered on pixel \texttt{(x,\ y)}.
+
+Matrix \textbf{A} is of size \texttt{n\^{}2\ *\ 2}. The left column
+contains a vectorized column of the \emph{x} gradients and the right
+column contains a vectorized column of the \emph{y} gradients.
+
+Matrix \textbf{b} contains a vectorized list of the temporal gradients.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} n = window size}
+        \PY{c+c1}{\PYZsh{} I will be using a gradient estimator kernel,}
+        \PY{c+c1}{\PYZsh{} originally used for edge detection to calculate A and B}
+        \PY{k}{def} \PY{n+nf}{compute\PYZus{}Ab}\PY{p}{(}\PY{n}{img0}\PY{p}{,} \PY{n}{img1}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{n}\PY{p}{)}\PY{p}{:}
+            \PY{n}{A} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{n}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+            \PY{n}{b} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{n}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}
+            \PY{n}{offset} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{floor}\PY{p}{(}\PY{n}{n}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{;} 
+            
+            \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+                \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{I\PYZus{}x}\PY{p}{,} \PY{n}{I\PYZus{}y}\PY{p}{,} \PY{n}{I\PYZus{}t} \PY{o}{=} \PY{n}{gradient\PYZus{}components}\PY{p}{(}\PY{n}{img0}\PY{p}{,} \PY{n}{img1}\PY{p}{,} \PY{n+nb}{int}\PY{p}{(}\PY{n}{x} \PY{o}{+} \PY{n}{i} \PY{o}{\PYZhy{}} \PY{n}{offset}\PY{p}{)}\PY{p}{,} \PY{n+nb}{int}\PY{p}{(}\PY{n}{y} \PY{o}{+} \PY{n}{j} \PY{o}{\PYZhy{}} \PY{n}{offset}\PY{p}{)}\PY{p}{)}
+                    \PY{n}{A}\PY{p}{[}\PY{p}{(}\PY{n}{i}\PY{o}{*}\PY{n}{n}\PY{p}{)} \PY{o}{+} \PY{n}{j}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{n}{I\PYZus{}x}
+                    \PY{n}{A}\PY{p}{[}\PY{p}{(}\PY{n}{i}\PY{o}{*}\PY{n}{n}\PY{p}{)} \PY{o}{+} \PY{n}{j}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{I\PYZus{}y}
+                    \PY{n}{b}\PY{p}{[}\PY{p}{(}\PY{n}{i}\PY{o}{*}\PY{n}{n}\PY{p}{)} \PY{o}{+} \PY{n}{j}\PY{p}{]} \PY{o}{=} \PY{n}{I\PYZus{}t}
+                
+            \PY{k}{return} \PY{n}{A}\PY{p}{,} \PY{n}{b}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{}print(compute\PYZus{}Ab(img\PYZus{}rubic[0]/255, img\PYZus{}rubic[1]/255, 100, 100, 5))}
+\end{Verbatim}
+
+
+    \textbf{c)} Solve the constraint equations either directly using the
+formula in the lecture slides or using a least- squares solver to
+estimate motion (u, v) at point (x, y).
+
+Now that we have a vectorized 2D linear representation of the of the
+data surrounding the point in question, the \textbf{d} matrix
+\texttt{(u,\ v)} contains the motion vector at that point. We have the
+equation in the form \texttt{A\ *\ d\ =\ b}
+
+This can be found via least squares regression.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{k}{def} \PY{n+nf}{compute\PYZus{}uv}\PY{p}{(}\PY{n}{A}\PY{p}{,} \PY{n}{b}\PY{p}{)}\PY{p}{:}
+            \PY{c+c1}{\PYZsh{}print(np.matmul(A.T, A).shape, np.matmul(A.T, \PYZhy{}b).shape)}
+            \PY{c+c1}{\PYZsh{}uv = linregress(np.matmul(A.T, A).shape, np.matmul(A.T, \PYZhy{}b).shape)}
+            \PY{n}{uv} \PY{o}{=} \PY{n}{lstsq}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{matmul}\PY{p}{(}\PY{n}{A}\PY{o}{.}\PY{n}{T}\PY{p}{,} \PY{n}{A}\PY{p}{)}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{matmul}\PY{p}{(}\PY{n}{A}\PY{o}{.}\PY{n}{T}\PY{p}{,} \PY{n}{b}\PY{p}{)}\PY{p}{,} \PY{n}{rcond}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
+            \PY{k}{return} \PY{n}{uv}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{A}\PY{p}{,}\PY{n}{b} \PY{o}{=} \PY{n}{compute\PYZus{}Ab}\PY{p}{(}\PY{n}{img\PYZus{}sphere}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{/}\PY{l+m+mi}{255}\PY{p}{,} \PY{n}{img\PYZus{}sphere}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{/}\PY{l+m+mi}{255}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}
+        \PY{n}{uv} \PY{o}{=} \PY{n}{compute\PYZus{}uv}\PY{p}{(}\PY{n}{A}\PY{p}{,} \PY{n}{b}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{uv}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[0.30035571 2.27552987]
+
+    \end{Verbatim}
+
+    \textbf{d)} Estimate the motion for an grid of locations covering the
+image.
+
+Now that we have the ability to get the motion vector at any point, we
+can simply test the direction of movement at various points around the
+picture. Using \emph{matplotlib's} \texttt{quiver} functionality, we can
+create a nice representation of the optical flow.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{k}{def} \PY{n+nf}{optical\PYZus{}flow\PYZus{}field}\PY{p}{(}\PY{n}{img0}\PY{p}{,} \PY{n}{img1}\PY{p}{,} \PY{n}{window\PYZus{}size}\PY{p}{,} \PY{n}{grid\PYZus{}size}\PY{p}{)}\PY{p}{:}
+            \PY{n}{height}\PY{p}{,} \PY{n}{width} \PY{o}{=} \PY{n}{img1}\PY{o}{.}\PY{n}{shape}
+            
+            \PY{n}{grid\PYZus{}x}\PY{p}{,} \PY{n}{grid\PYZus{}y} \PY{o}{=} \PY{n}{grid\PYZus{}size}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{grid\PYZus{}size}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+            
+            \PY{n}{flow} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{grid\PYZus{}x}\PY{p}{,} \PY{n}{grid\PYZus{}y}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+            \PY{n}{delta\PYZus{}x}\PY{p}{,} \PY{n}{delta\PYZus{}y} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{height}\PY{o}{/}\PY{n}{grid\PYZus{}x}\PY{p}{)}\PY{p}{,} \PY{n+nb}{int}\PY{p}{(}\PY{n}{width}\PY{o}{/}\PY{n}{grid\PYZus{}y}\PY{p}{)}
+            
+            \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{width}\PY{p}{,} \PY{n}{delta\PYZus{}x}\PY{p}{)} \PY{o}{+} \PY{n}{np}\PY{o}{.}\PY{n}{floor}\PY{p}{(}\PY{n}{delta\PYZus{}x}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}
+            \PY{n}{y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{height}\PY{p}{,} \PY{n}{delta\PYZus{}y}\PY{p}{)} \PY{o}{+} \PY{n}{np}\PY{o}{.}\PY{n}{floor}\PY{p}{(}\PY{n}{delta\PYZus{}y}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}
+            \PY{n}{gridX}\PY{p}{,} \PY{n}{gridY} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{meshgrid}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{p}{;}
+            
+            \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{grid\PYZus{}x}\PY{p}{)}\PY{p}{:}
+                \PY{k}{for} \PY{n}{y} \PY{o+ow}{in} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{grid\PYZus{}y}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{A}\PY{p}{,}\PY{n}{b} \PY{o}{=} \PY{n}{compute\PYZus{}Ab}\PY{p}{(}\PY{n}{img0}\PY{p}{,} \PY{n}{img1}\PY{p}{,} \PY{n}{x}\PY{o}{*}\PY{n}{delta\PYZus{}x}\PY{p}{,} \PY{n}{y}\PY{o}{*}\PY{n}{delta\PYZus{}y}\PY{p}{,} \PY{n}{window\PYZus{}size}\PY{p}{)}
+                    \PY{n}{uv} \PY{o}{=} \PY{n}{compute\PYZus{}uv}\PY{p}{(}\PY{n}{A}\PY{p}{,} \PY{n}{b}\PY{p}{)}
+                    \PY{n}{flow}\PY{p}{[}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{p}{:}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{uv}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{uv}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+            \PY{k}{return} \PY{p}{(}\PY{n}{gridX}\PY{p}{,} \PY{n}{gridY}\PY{p}{)}\PY{p}{,} \PY{n}{flow}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{grid}\PY{p}{,} \PY{n}{flow} \PY{o}{=} \PY{n}{optical\PYZus{}flow\PYZus{}field}\PY{p}{(}\PY{n}{img\PYZus{}rubic}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{/}\PY{l+m+mi}{255}\PY{p}{,} \PY{n}{img\PYZus{}rubic}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{/}\PY{l+m+mi}{255}\PY{p}{,} \PY{l+m+mi}{14}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{30}\PY{p}{,} \PY{l+m+mi}{32}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{,} \PY{n}{dpi}\PY{o}{=}\PY{l+m+mi}{80}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img\PYZus{}rubic}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{quiver}\PY{p}{(}\PY{n}{grid}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{grid}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{flow}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{flow}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lime}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{angles}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{xy}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{scale}\PY{o}{=}\PY{l+m+mi}{40}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{optimization}{%
+\paragraph{Optimization}\label{optimization}}
+
+Due to the order of the steps required by the directions, the
+calculation of the optical flow via the Lucas-Kanade algorithm is
+greatly unoptimzied. For example, the gradient is at each coordinate
+point is calculated \texttt{(n\^{}2)-1} more times that it needs to be.
+For this reason, I have implemented an optimized for of this algorithm
+that avoids that problem, by only calculating the gradient once.
+
+Another optimzation that will be used is the use of gradient estimators.
+To estimate the gradient we will be using the \emph{sobel kernel}, which
+I used for edge detection earlier this year.
+
+In addition, I added the ability to use the singular values of matrix
+\textbf{A} as the coefficient for the motion vector. This helps with
+optical flow for certain image sequences, but significantly decreases
+the optical flow detection for other sequences.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{k}{def} \PY{n+nf}{lucas\PYZus{}kanade\PYZus{}optimzed}\PY{p}{(}\PY{n}{img0}\PY{p}{,} \PY{n}{img1}\PY{p}{,} \PY{n}{window\PYZus{}size}\PY{p}{,} \PY{n}{grid\PYZus{}size}\PY{p}{,} \PY{n}{svd}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{:}
+             \PY{n}{height}\PY{p}{,} \PY{n}{width} \PY{o}{=} \PY{n}{img0}\PY{o}{.}\PY{n}{shape}
+             
+             \PY{c+c1}{\PYZsh{}sobel kernels}
+             \PY{n}{kernel\PYZus{}x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)} \PY{o}{*} \PY{l+m+mi}{1}\PY{o}{/}\PY{l+m+mi}{8}
+             \PY{n}{kernel\PYZus{}y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)} \PY{o}{*} \PY{l+m+mi}{1}\PY{o}{/}\PY{l+m+mi}{8}
+             
+             \PY{n}{grad\PYZus{}y} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{filter2D}\PY{p}{(}\PY{n}{img0}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{kernel\PYZus{}x}\PY{p}{)}
+             \PY{n}{grad\PYZus{}x} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{filter2D}\PY{p}{(}\PY{n}{img0}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{kernel\PYZus{}y}\PY{p}{)}
+             \PY{n}{grad\PYZus{}z} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{subtract}\PY{p}{(}\PY{n}{img1}\PY{p}{,} \PY{n}{img0}\PY{p}{)}
+             
+             \PY{n}{grid\PYZus{}x}\PY{p}{,} \PY{n}{grid\PYZus{}y} \PY{o}{=} \PY{n}{grid\PYZus{}size}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{grid\PYZus{}size}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+             
+             \PY{n}{flow} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{grid\PYZus{}x}\PY{p}{,} \PY{n}{grid\PYZus{}y}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+             \PY{n}{delta\PYZus{}x}\PY{p}{,} \PY{n}{delta\PYZus{}y} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{height}\PY{o}{/}\PY{n}{grid\PYZus{}x}\PY{p}{)}\PY{p}{,} \PY{n+nb}{int}\PY{p}{(}\PY{n}{width}\PY{o}{/}\PY{n}{grid\PYZus{}y}\PY{p}{)}
+             
+             \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{width}\PY{p}{,} \PY{n}{delta\PYZus{}x}\PY{p}{)} \PY{o}{+} \PY{n}{np}\PY{o}{.}\PY{n}{floor}\PY{p}{(}\PY{n}{delta\PYZus{}x}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}
+             \PY{n}{y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{height}\PY{p}{,} \PY{n}{delta\PYZus{}y}\PY{p}{)} \PY{o}{+} \PY{n}{np}\PY{o}{.}\PY{n}{floor}\PY{p}{(}\PY{n}{delta\PYZus{}y}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}
+             \PY{n}{gridX}\PY{p}{,} \PY{n}{gridY} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{meshgrid}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{p}{;}
+             
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{grid\PYZus{}x}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{grid\PYZus{}y}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{uv} \PY{o}{=} \PY{n}{eval\PYZus{}region}\PY{p}{(}\PY{n}{grad\PYZus{}x}\PY{p}{,} \PY{n}{grad\PYZus{}y}\PY{p}{,} \PY{n}{grad\PYZus{}z}\PY{p}{,} \PY{n}{i}\PY{o}{*}\PY{n}{delta\PYZus{}x}\PY{p}{,} \PY{n}{j}\PY{o}{*}\PY{n}{delta\PYZus{}y}\PY{p}{,} \PY{n}{window\PYZus{}size}\PY{p}{,} \PY{n}{svd}\PY{p}{)}
+                     \PY{n}{flow}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{j}\PY{p}{,}\PY{p}{:}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{uv}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{uv}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+             \PY{k}{return} \PY{p}{(}\PY{n}{gridX}\PY{p}{,} \PY{n}{gridY}\PY{p}{)}\PY{p}{,} \PY{n}{flow}
+             
+         \PY{k}{def} \PY{n+nf}{eval\PYZus{}region}\PY{p}{(}\PY{n}{grad\PYZus{}x}\PY{p}{,} \PY{n}{grad\PYZus{}y}\PY{p}{,} \PY{n}{grad\PYZus{}z}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{n}\PY{p}{,} \PY{n}{svd}\PY{p}{)}\PY{p}{:} 
+             \PY{n}{A} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{n}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+             \PY{n}{b} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{n}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}
+             \PY{n}{offset} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{floor}\PY{p}{(}\PY{n}{n}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}
+             \PY{n}{x\PYZus{}} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{x} \PY{o}{\PYZhy{}} \PY{n}{offset}\PY{p}{)}
+             \PY{n}{y\PYZus{}} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{y} \PY{o}{\PYZhy{}} \PY{n}{offset}\PY{p}{)}
+             
+             \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{A}\PY{p}{[}\PY{p}{(}\PY{n}{i}\PY{o}{*}\PY{n}{n}\PY{p}{)} \PY{o}{+} \PY{n}{j}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{n}{grad\PYZus{}x}\PY{p}{[}\PY{n}{x\PYZus{}} \PY{o}{+} \PY{n}{i}\PY{p}{,} \PY{n}{y\PYZus{}} \PY{o}{+} \PY{n}{j}\PY{p}{]}
+                     \PY{n}{A}\PY{p}{[}\PY{p}{(}\PY{n}{i}\PY{o}{*}\PY{n}{n}\PY{p}{)} \PY{o}{+} \PY{n}{j}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{grad\PYZus{}y}\PY{p}{[}\PY{n}{x\PYZus{}} \PY{o}{+} \PY{n}{i}\PY{p}{,} \PY{n}{y\PYZus{}} \PY{o}{+} \PY{n}{j}\PY{p}{]}
+                     \PY{n}{b}\PY{p}{[}\PY{p}{(}\PY{n}{i}\PY{o}{*}\PY{n}{n}\PY{p}{)} \PY{o}{+} \PY{n}{j}\PY{p}{]} \PY{o}{=} \PY{n}{grad\PYZus{}z}\PY{p}{[}\PY{n}{x\PYZus{}} \PY{o}{+} \PY{n}{i}\PY{p}{,} \PY{n}{y\PYZus{}} \PY{o}{+} \PY{n}{j}\PY{p}{]}
+             \PY{n}{uv} \PY{o}{=} \PY{n}{lstsq}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{matmul}\PY{p}{(}\PY{n}{A}\PY{o}{.}\PY{n}{T}\PY{p}{,} \PY{n}{A}\PY{p}{)}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{matmul}\PY{p}{(}\PY{n}{A}\PY{o}{.}\PY{n}{T}\PY{p}{,} \PY{n}{b}\PY{p}{)}\PY{p}{,} \PY{n}{rcond}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
+             \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{multiply}\PY{p}{(}\PY{n}{uv}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{uv}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)} \PY{k}{if} \PY{n}{svd} \PY{k}{else} \PY{n}{uv}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+\end{Verbatim}
+
+
+    \hypertarget{timing-comparison}{%
+\paragraph{Timing Comparison}\label{timing-comparison}}
+
+Using the ore optimized method for this method is significantly faster
+when processing the optical flow of the images.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{o}{\PYZpc{}}\PY{k}{timeit} optical\PYZus{}flow\PYZus{}field(img\PYZus{}rubic[0]/255, img\PYZus{}rubic[1]/255, 14, (30, 32))
+         \PY{o}{\PYZpc{}}\PY{k}{timeit} lucas\PYZus{}kanade\PYZus{}optimzed(img\PYZus{}rubic[0]/255, img\PYZus{}rubic[1]/255, 14, (30, 32), False)
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+3.02 s ± 199 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
+626 ms ± 19.4 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{grid}\PY{p}{,} \PY{n}{flow} \PY{o}{=} \PY{n}{lucas\PYZus{}kanade\PYZus{}optimzed}\PY{p}{(}\PY{n}{img\PYZus{}rubic}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{/}\PY{l+m+mi}{255}\PY{p}{,} \PY{n}{img\PYZus{}rubic}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{/}\PY{l+m+mi}{255}\PY{p}{,} \PY{l+m+mi}{14}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{30}\PY{p}{,} \PY{l+m+mi}{32}\PY{p}{)}\PY{p}{)}
+         \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{,} \PY{n}{dpi}\PY{o}{=}\PY{l+m+mi}{80}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img\PYZus{}rubic}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{quiver}\PY{p}{(}\PY{n}{grid}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{grid}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{flow}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{flow}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lime}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{angles}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{xy}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{scale}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_21_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{grid}\PY{p}{,} \PY{n}{flow} \PY{o}{=} \PY{n}{lucas\PYZus{}kanade\PYZus{}optimzed}\PY{p}{(}\PY{n}{img\PYZus{}sphere}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{/}\PY{l+m+mi}{255}\PY{p}{,} \PY{n}{img\PYZus{}sphere}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{/}\PY{l+m+mi}{255}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{40}\PY{p}{,} \PY{l+m+mi}{40}\PY{p}{)}\PY{p}{)}
+         \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{,} \PY{n}{dpi}\PY{o}{=}\PY{l+m+mi}{80}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img\PYZus{}sphere}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{quiver}\PY{p}{(}\PY{n}{grid}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{grid}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{flow}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{flow}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lime}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{angles}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{xy}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{scale}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_22_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{singular-values}{%
+\paragraph{Singular Values}\label{singular-values}}
+
+By using the Singular Values of matrix \textbf{A} as a coefficient for
+the motion vectors, we can get significantly better detection for the
+Rubic's cube. This is due to the fact that the noisy sections (small
+changes in intensity) will inherently have lower singular values.
+
+However, due to the lack of noise and small intensity value changes
+created by the translating gradient patches of the sphere, the singular
+values are very small along the surface, resulting in incorrectly
+truncated motion vectors.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{grid}\PY{p}{,} \PY{n}{flow} \PY{o}{=} \PY{n}{lucas\PYZus{}kanade\PYZus{}optimzed}\PY{p}{(}\PY{n}{img\PYZus{}rubic}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{/}\PY{l+m+mi}{255}\PY{p}{,} \PY{n}{img\PYZus{}rubic}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{/}\PY{l+m+mi}{255}\PY{p}{,} \PY{l+m+mi}{14}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{30}\PY{p}{,} \PY{l+m+mi}{32}\PY{p}{)}\PY{p}{,} \PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{,} \PY{n}{dpi}\PY{o}{=}\PY{l+m+mi}{80}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img\PYZus{}rubic}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{quiver}\PY{p}{(}\PY{n}{grid}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{grid}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{flow}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{flow}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lime}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{angles}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{xy}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{scale}\PY{o}{=}\PY{l+m+mi}{25}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_24_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{grid}\PY{p}{,} \PY{n}{flow} \PY{o}{=} \PY{n}{lucas\PYZus{}kanade\PYZus{}optimzed}\PY{p}{(}\PY{n}{img\PYZus{}sphere}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{/}\PY{l+m+mi}{255}\PY{p}{,} \PY{n}{img\PYZus{}sphere}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{/}\PY{l+m+mi}{255}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{40}\PY{p}{,} \PY{l+m+mi}{40}\PY{p}{)}\PY{p}{,} \PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{,} \PY{n}{dpi}\PY{o}{=}\PY{l+m+mi}{80}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img\PYZus{}sphere}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{quiver}\PY{p}{(}\PY{n}{grid}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{grid}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{flow}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{flow}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lime}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{angles}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{xy}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{scale}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_25_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{conclusion}{%
+\subsection{Conclusion}\label{conclusion}}
+
+    The Lucas-Kanade Method provides a much more accurate representation of
+the motion flow by using the gradients of the image to calculate the
+motion vectors. This is more robust due to the fact that template
+matching is vulnerable to noise.\\
+In addition, much of the motion capture in the images are not
+translations in the plane of the image. For instance, in the sphere
+example, the left side of the sphere is moving towards the viewer and
+the right side is moving away. This sort of motion is not a translation,
+and is not captured well by template matching.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
